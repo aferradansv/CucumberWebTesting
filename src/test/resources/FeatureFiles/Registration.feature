@@ -8,6 +8,7 @@ Feature: Register a new customer in our store
   Background:
     Given the user opens the store web
     And navigates to the registration page
+    And the user is on registration page
 
   @smoke
   Scenario: Successfully registering a new user

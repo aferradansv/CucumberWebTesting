@@ -1,7 +1,8 @@
 package com.testing.CucumberWebTesting.StepDefinitions;
 
 import com.testing.CucumberWebTesting.Pages.HomePage;
-import com.testing.CucumberWebTesting.Pages.RegistrationPage;
+import com.testing.CucumberWebTesting.Pages.RegistrationPage.RegistrationPageAct;
+import com.testing.CucumberWebTesting.Pages.RegistrationPage.RegistrationPageVerify;
 import com.testing.CucumberWebTesting.Utils.RegistrationEnum;
 import com.testing.CucumberWebTesting.Utils.RegistrationInformation;
 import io.cucumber.java.en.Given;
@@ -15,7 +16,10 @@ public class RegistrationStepDef {
     private HomePage homePage;
 
     @Autowired
-    private RegistrationPage registrationPage;
+    private RegistrationPageAct registrationPageAct;
+
+    @Autowired
+    private RegistrationPageVerify registrationPageVerify;
 
     @Autowired
     private RegistrationInformation registrationInformation;
@@ -32,19 +36,18 @@ public class RegistrationStepDef {
 
     @Then("the user is on registration page")
     public void the_user_is_on_registration_page() {
-        registrationPage.verifyRegistrationPageIsDisplayed();
+        registrationPageVerify.registrationPageIsDisplayed();
     }
 
 
     @When("the user completes the registration with correct data")
     public void theUserFillsTheForm() {
-        registrationPage.fillForm();
-        registrationPage.completeRegistration();
+        registrationPageAct.fillForm().completeRegistration();
     }
 
     @Then("the registration has been completed successfully")
     public void theRegistrationHasBeenCompletedSuccessfully() {
-        registrationPage.verifyRegistrationCompleted();
+        registrationPageVerify.registrationCompleted();
     }
 
     @When("the user completes the registration with field {registrationEnum} and value {string}")
@@ -59,21 +62,20 @@ public class RegistrationStepDef {
             case Newsletter -> registrationInformation.setNewsletter(Boolean.parseBoolean(value));
             case Privacy -> registrationInformation.setPrivacyPolicy(Boolean.parseBoolean(value));
         }
-        registrationPage.fillForm();
-        registrationPage.completeRegistration();
+        registrationPageAct.fillForm().completeRegistration();
     }
 
 
     @Then("an error message in the field {registrationEnum} is displayed")
     public void anErrorMessageInTheFieldIsDisplayed(RegistrationEnum field) {
         switch (field) {
-            case FirstName -> registrationPage.verifyFirstNameErrorMessage();
-            case LastName -> registrationPage.verifyLastNameErrorMessage();
-            case EMail -> registrationPage.verifyEMailErrorMessage();
-            case Telephone ->  registrationPage.verifyPhoneNumberErrorMessage();
-            case Password -> registrationPage.verifyPasswordErrorMessage();
-            case PasswordConfirm ->  registrationPage.verifyRepeatPasswordErrorMessage();
-            case Privacy -> registrationPage.verifyPrivacyErrorMessage();
+            case FirstName -> registrationPageVerify.firstNameErrorMessage();
+            case LastName -> registrationPageVerify.lastNameErrorMessage();
+            case EMail -> registrationPageVerify.eMailErrorMessage();
+            case Telephone ->  registrationPageVerify.phoneNumberErrorMessage();
+            case Password -> registrationPageVerify.passwordErrorMessage();
+            case PasswordConfirm ->  registrationPageVerify.repeatPasswordErrorMessage();
+            case Privacy -> registrationPageVerify.privacyErrorMessage();
         }
     }
 }
