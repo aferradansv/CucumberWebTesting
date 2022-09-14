@@ -1,6 +1,8 @@
 package com.testing.CucumberWebTesting.Factories;
 
-import com.testing.CucumberWebTesting.Pages.*;
+import com.testing.CucumberWebTesting.Pages.CommonPage;
+import com.testing.CucumberWebTesting.Pages.HomePage;
+import com.testing.CucumberWebTesting.Pages.LogInPage.LogInPageWebElements;
 import com.testing.CucumberWebTesting.Pages.RegistrationPage.RegistrationPageWebElements;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.support.PageFactory;
@@ -29,5 +31,6 @@ public class PageInitFactory {
         PageFactory.initElements(webDriver, CommonPage.class);
         PageFactory.initElements(webDriver, HomePage.class);
         PageFactory.initElements(webDriver, RegistrationPageWebElements.class);
+        PageFactory.initElements(webDriver, LogInPageWebElements.class);
     }
 }

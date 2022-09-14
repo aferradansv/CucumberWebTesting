@@ -19,10 +19,20 @@ public class CommonPage extends PageInitFactory {
     @FindBy(linkText = "Register")
     private WebElement registerButton;
 
+    @FindBy(linkText = "Login")
+    private WebElement logInButton;
+
     public void navigateToRegistrationPage() {
         webDriverWait.until(ExpectedConditions.elementToBeClickable(myAccountDropdown));
         myAccountDropdown.click();
         webDriverWait.until(ExpectedConditions.elementToBeClickable(registerButton));
         registerButton.click();
+    }
+
+    public void navigateToLogInPage() {
+        webDriverWait.until(ExpectedConditions.elementToBeClickable(myAccountDropdown));
+        myAccountDropdown.click();
+        webDriverWait.until(ExpectedConditions.elementToBeClickable(logInButton));
+        logInButton.click();
     }
 }

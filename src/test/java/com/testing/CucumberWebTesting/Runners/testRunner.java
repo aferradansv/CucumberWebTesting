@@ -8,8 +8,12 @@ import org.junit.runner.RunWith;
 @CucumberOptions(
         extraGlue = "com/testing/CucumberWebTesting",
         features = "src/test/resources",
-        plugin = { "pretty", "html:target/cucumber-reports/cucumber.html", "json:target/cucumber-reports/cucumber.json" },
-        tags = "@run"
+        plugin = {
+                "pretty",
+                "json:target/surefire-reports/cucumber.json",
+                "html:target/surefire-reports/cucumber-html-report.html"
+        },
+        tags = "@regression"
 )
 public class testRunner {
 }

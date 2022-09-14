@@ -12,31 +12,31 @@ import static io.cucumber.spring.CucumberTestContext.SCOPE_CUCUMBER_GLUE;
 public class RegistrationPageAct {
 
     @Autowired
-    private RegistrationPageWebElements registrationPageWebElements;
+    private RegistrationPageWebElements webElements;
 
     @Autowired
     private RegistrationInformation registrationInformation;
 
     public RegistrationPageAct fillForm() {
-        registrationPageWebElements.firstName.sendKeys(registrationInformation.getFirstName());
-        registrationPageWebElements.lastname.sendKeys(registrationInformation.getLastName());
-        registrationPageWebElements.email.sendKeys(registrationInformation.getEmailAddress());
-        registrationPageWebElements.telephone.sendKeys(registrationInformation.getPhoneNumber());
-        registrationPageWebElements.password.sendKeys(registrationInformation.getPassword());
-        registrationPageWebElements.passwordConfirm.sendKeys(registrationInformation.getRepeatPassword());
+        webElements.firstName.sendKeys(registrationInformation.getFirstName());
+        webElements.lastname.sendKeys(registrationInformation.getLastName());
+        webElements.email.sendKeys(registrationInformation.getEmailAddress());
+        webElements.telephone.sendKeys(registrationInformation.getPhoneNumber());
+        webElements.password.sendKeys(registrationInformation.getPassword());
+        webElements.passwordConfirm.sendKeys(registrationInformation.getRepeatPassword());
         if (registrationInformation.isNewsletter()) {
-            registrationPageWebElements.newsLetterYes.click();
+            webElements.newsLetterYes.click();
         } else {
-            registrationPageWebElements.newsLetterNo.click();
+            webElements.newsLetterNo.click();
         }
         if (registrationInformation.isPrivacyPolicy()) {
-            registrationPageWebElements.privacyPolicy.click();
+            webElements.privacyPolicy.click();
         }
         return this;
     }
 
     public void completeRegistration() {
-        registrationPageWebElements.continueButton.click();
+        webElements.continueButton.click();
     }
 
 }
