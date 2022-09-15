@@ -16,7 +16,7 @@ import static io.cucumber.spring.CucumberTestContext.SCOPE_CUCUMBER_GLUE;
 public class DataProviderFactory {
 
 
-    private RegistrationInformation registrationInformation;
+    private final RegistrationInformation registrationInformation;
 
 
     public DataProviderFactory(RegistrationInformation registrationInformation) {

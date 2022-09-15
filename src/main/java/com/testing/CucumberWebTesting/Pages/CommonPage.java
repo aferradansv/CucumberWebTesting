@@ -22,6 +22,9 @@ public class CommonPage extends PageInitFactory {
     @FindBy(linkText = "Login")
     private WebElement logInButton;
 
+    @FindBy(linkText = "Logout")
+    private WebElement logoutButton;
+
     public void navigateToRegistrationPage() {
         webDriverWait.until(ExpectedConditions.elementToBeClickable(myAccountDropdown));
         myAccountDropdown.click();
@@ -34,5 +37,12 @@ public class CommonPage extends PageInitFactory {
         myAccountDropdown.click();
         webDriverWait.until(ExpectedConditions.elementToBeClickable(logInButton));
         logInButton.click();
+    }
+
+    public void LogOut() {
+        webDriverWait.until(ExpectedConditions.elementToBeClickable(myAccountDropdown));
+        myAccountDropdown.click();
+        webDriverWait.until(ExpectedConditions.elementToBeClickable(logoutButton));
+        logoutButton.click();
     }
 }

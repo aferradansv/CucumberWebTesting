@@ -4,8 +4,10 @@ import com.testing.CucumberWebTesting.Factories.DataProviderFactory;
 import com.testing.CucumberWebTesting.Pages.HomePage;
 import com.testing.CucumberWebTesting.Pages.LogInPage.LogInPageAct;
 import com.testing.CucumberWebTesting.Pages.LogInPage.LogInPageVerify;
+import com.testing.CucumberWebTesting.Pages.LogOutPage.LogOutPageVerify;
 import com.testing.CucumberWebTesting.Pages.MyAccountPage.MyAccountPageVerify;
-import com.testing.CucumberWebTesting.Utils.AuthenticationData;
+import com.testing.CucumberWebTesting.Utils.RegistrationInformation;
+import io.cucumber.java.en.And;
 import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
@@ -13,7 +15,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 
 import java.io.IOException;
 
-public class LogInStepDef {
+public class LogInOutStepDef {
 
     @Autowired
     private HomePage homePage;
@@ -30,6 +32,12 @@ public class LogInStepDef {
     @Autowired
     private DataProviderFactory dataProvider;
 
+    @Autowired
+    private RegistrationInformation regInfo;
+
+    @Autowired
+    private LogOutPageVerify logOutPageVerify;
+
     @Given("an existing customer user opens the store web")
     public void anExistingCustomerUserOpensTheStoreWeb() throws IOException {
         dataProvider.createNewCustomerByAPI();
@@ -38,32 +46,40 @@ public class LogInStepDef {
     }
 
     @Given("navigates to the login page")
-    public void navigates_to_the_login_page() {
+    public void navigatesToTheLoginPage() {
         homePage.navigateToLogInPage();
     }
 
     @Given("the user is on login page")
-    public void the_user_is_on_login_page() {
+    public void theUserIsOnLoginPage() {
         logInPageVerify.logInPageIsDisplayed();
     }
 
+    @And("the customer logs in")
+    public void theCustomerLogsIn() {
+        navigatesToTheLoginPage();
+        theUserIsOnLoginPage();
+        logInUsingValidCredentials();
+        verifyMyPersonalAccountPageIsDisplayed();
+    }
+
     @When("the user introduces valid credentials")
-    public void logIn_using_valid_credentials() {
-        logInPageAct.fillCredentials(AuthenticationData.TEST_USER_EMAIL.get(),AuthenticationData.TEST_USER_PASSWORD.get()).completeLogIn();
+    public void logInUsingValidCredentials() {
+        logInPageAct.fillCredentials(regInfo.getEmailAddress(), regInfo.getPassword()).completeLogIn();
     }
 
     @When("the user introduces valid username and wrong password")
-    public void logIn_using_wrong_password() {
-        logInPageAct.fillCredentials(AuthenticationData.TEST_USER_EMAIL.get(),AuthenticationData.TEST_USER_PASSWORD_WRONG.get()).completeLogIn();
+    public void logInUsingWrongPassword() {
+        logInPageAct.fillCredentials(regInfo.getEmailAddress(),"wrongPassword123").completeLogIn();
     }
 
     @When("the user introduces valid password and wrong username")
-    public void logIn_using_wrong_username() {
-        logInPageAct.fillCredentials(AuthenticationData.TEST_USER_EMAIL_NON_EXISTING.get(),AuthenticationData.TEST_USER_PASSWORD.get()).completeLogIn();
+    public void logInUsingWrongUsername() {
+        logInPageAct.fillCredentials("lkdjlaksjdlas@sdkjashdkjasdhas.com",regInfo.getPassword()).completeLogIn();
     }
 
     @Then("the user can see My personal account page")
-    public void i_can_see_my_personal_account_page() {
+    public void verifyMyPersonalAccountPageIsDisplayed() {
         myAccountPageVerify.myAccountPageIsDisplayed();
     }
 
@@ -73,6 +89,18 @@ public class LogInStepDef {
         logInPageVerify.assertLogInErrorMessage();
         logInPageVerify.logInPageIsDisplayed();
     }
+
+
+    @When("the customer logs out successfully")
+    public void theCustomerLogsOutSuccessfully() {
+        homePage.LogOut();
+    }
+
+    @Then("the customer can see the log out page")
+    public void theCustomerCanSeeTheLogOutPage() {
+        logOutPageVerify.logOutPageIsDisplayed();
+    }
+
 
 
 }
