@@ -75,4 +75,10 @@ public class RegistrationPageVerify {
         Assertions.assertThat(webElements.alertAgreeConditions.isDisplayed()).isEqualTo(true);
         Assertions.assertThat(webElements.alertAgreeConditions.getText()).isEqualTo("Warning: You must agree to the Privacy Policy!");
     }
+
+    public void alreadyRegisteredErrorMessage() {
+        webDriverWait.until(ExpectedConditions.visibilityOf(webElements.alertAgreeConditions));
+        Assertions.assertThat(webElements.alertAgreeConditions.isDisplayed()).isEqualTo(true);
+        Assertions.assertThat(webElements.alertAgreeConditions.getText()).isEqualTo("Warning: E-Mail Address is already registered!");
+    }
 }

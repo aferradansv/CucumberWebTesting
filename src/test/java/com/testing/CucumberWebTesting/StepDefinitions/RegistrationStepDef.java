@@ -24,7 +24,7 @@ public class RegistrationStepDef {
     @Autowired
     private RegistrationInformation registrationInformation;
 
-    @Given("the user opens the store web")
+    @Given("a new user opens the store web")
     public void openHomePage() {
         homePage.navigateTo();
         homePage.verifyHomePageIsDisplayed();
@@ -77,5 +77,10 @@ public class RegistrationStepDef {
             case PasswordConfirm ->  registrationPageVerify.repeatPasswordErrorMessage();
             case Privacy -> registrationPageVerify.privacyErrorMessage();
         }
+    }
+
+    @Then("the registration fails since that email has been already registered")
+    public void theRegistrationFailsSinceThatEmailHasBeenAlreadyRegistered() {
+        registrationPageVerify.alreadyRegisteredErrorMessage();
     }
 }

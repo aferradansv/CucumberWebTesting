@@ -6,7 +6,7 @@ Feature: Log In with an existing customer in our store
   So that he can place orders and enjoy all our benefits
 
   Background:
-    Given the user opens the store web
+    Given an existing customer user opens the store web
     And navigates to the login page
     And the user is on login page
 

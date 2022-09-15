@@ -5,18 +5,19 @@ Feature: Register a new customer in our store
   I want to ensure customer can register and appropriate error messages are sent
   So that the customer can register properly and can enjoy the benefits
 
-  Background:
-    Given the user opens the store web
-    And navigates to the registration page
-    And the user is on registration page
-
   @smoke
   Scenario: Successfully registering a new user
+    Given a new user opens the store web
+    And navigates to the registration page
+    And the user is on registration page
     When the user completes the registration with correct data
     Then the registration has been completed successfully
 
 
   Scenario Outline: Validate user can not register if the value in <field> <title>
+    Given a new user opens the store web
+    And navigates to the registration page
+    And the user is on registration page
     When the user completes the registration with field <field> and value "<value>"
     Then an error message in the field <field> is displayed
 
@@ -37,5 +38,15 @@ Feature: Register a new customer in our store
 
 
   Scenario: Validate user can not register unless Privacy policy is agreed
-      When the user completes the registration with field Privacy and value "no"
-      Then an error message in the field Privacy is displayed
+    Given a new user opens the store web
+    And navigates to the registration page
+    And the user is on registration page
+    When the user completes the registration with field Privacy and value "no"
+    Then an error message in the field Privacy is displayed
+
+
+  Scenario: E-mail address can not be registered twice
+    Given an existing customer user opens the store web
+    And navigates to the registration page
+    When the user completes the registration with correct data
+    Then the registration fails since that email has been already registered

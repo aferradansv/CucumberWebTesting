@@ -1,5 +1,6 @@
 package com.testing.CucumberWebTesting.StepDefinitions;
 
+import com.testing.CucumberWebTesting.Factories.DataProviderFactory;
 import com.testing.CucumberWebTesting.Pages.HomePage;
 import com.testing.CucumberWebTesting.Pages.LogInPage.LogInPageAct;
 import com.testing.CucumberWebTesting.Pages.LogInPage.LogInPageVerify;
@@ -9,6 +10,8 @@ import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
 import org.springframework.beans.factory.annotation.Autowired;
+
+import java.io.IOException;
 
 public class LogInStepDef {
 
@@ -23,6 +26,16 @@ public class LogInStepDef {
 
     @Autowired
     private MyAccountPageVerify myAccountPageVerify;
+
+    @Autowired
+    private DataProviderFactory dataProvider;
+
+    @Given("an existing customer user opens the store web")
+    public void anExistingCustomerUserOpensTheStoreWeb() throws IOException {
+        dataProvider.createNewCustomerByAPI();
+        homePage.navigateTo();
+        homePage.verifyHomePageIsDisplayed();
+    }
 
     @Given("navigates to the login page")
     public void navigates_to_the_login_page() {
@@ -60,4 +73,6 @@ public class LogInStepDef {
         logInPageVerify.assertLogInErrorMessage();
         logInPageVerify.logInPageIsDisplayed();
     }
+
+
 }
