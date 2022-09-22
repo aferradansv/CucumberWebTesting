@@ -5,7 +5,7 @@ Feature: Log Out after a customer has Logged In
   I want to ensure customer can Log out correctly
   So that he can finish the session safely
 
-  @run
+  @smoke
   Scenario: Customer logs out from web store
     Given an existing customer user opens the store web
     And the customer logs in

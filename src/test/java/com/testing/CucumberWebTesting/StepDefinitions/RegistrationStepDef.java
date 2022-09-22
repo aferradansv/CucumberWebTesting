@@ -1,6 +1,7 @@
 package com.testing.CucumberWebTesting.StepDefinitions;
 
-import com.testing.CucumberWebTesting.Pages.HomePage;
+import com.testing.CucumberWebTesting.Pages.CommonPage.CommonPageAct;
+import com.testing.CucumberWebTesting.Pages.HomePage.HomePage;
 import com.testing.CucumberWebTesting.Pages.RegistrationPage.RegistrationPageAct;
 import com.testing.CucumberWebTesting.Pages.RegistrationPage.RegistrationPageVerify;
 import com.testing.CucumberWebTesting.Utils.RegistrationEnum;
@@ -14,6 +15,9 @@ public class RegistrationStepDef {
 
     @Autowired
     private HomePage homePage;
+
+    @Autowired
+    private CommonPageAct commonPageAct;
 
     @Autowired
     private RegistrationPageAct registrationPageAct;
@@ -31,7 +35,7 @@ public class RegistrationStepDef {
     }
     @Given("navigates to the registration page")
     public void i_navigate_to_the_registration_page() {
-        homePage.navigateToRegistrationPage();
+        commonPageAct.navigateToRegistrationPage();
     }
 
     @Then("the user is on registration page")

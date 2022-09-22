@@ -1,7 +1,8 @@
 package com.testing.CucumberWebTesting.StepDefinitions;
 
 import com.testing.CucumberWebTesting.Factories.DataProviderFactory;
-import com.testing.CucumberWebTesting.Pages.HomePage;
+import com.testing.CucumberWebTesting.Pages.CommonPage.CommonPageAct;
+import com.testing.CucumberWebTesting.Pages.HomePage.HomePage;
 import com.testing.CucumberWebTesting.Pages.LogInPage.LogInPageAct;
 import com.testing.CucumberWebTesting.Pages.LogInPage.LogInPageVerify;
 import com.testing.CucumberWebTesting.Pages.LogOutPage.LogOutPageVerify;
@@ -19,6 +20,9 @@ public class LogInOutStepDef {
 
     @Autowired
     private HomePage homePage;
+
+    @Autowired
+    private CommonPageAct commonPageAct;
 
     @Autowired
     private LogInPageAct logInPageAct;
@@ -47,7 +51,7 @@ public class LogInOutStepDef {
 
     @Given("navigates to the login page")
     public void navigatesToTheLoginPage() {
-        homePage.navigateToLogInPage();
+        commonPageAct.navigateToLogInPage();
     }
 
     @Given("the user is on login page")
@@ -93,7 +97,7 @@ public class LogInOutStepDef {
 
     @When("the customer logs out successfully")
     public void theCustomerLogsOutSuccessfully() {
-        homePage.LogOut();
+        commonPageAct.LogOut();
     }
 
     @Then("the customer can see the log out page")

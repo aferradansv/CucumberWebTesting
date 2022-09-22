@@ -1,6 +1,7 @@
 package com.testing.CucumberWebTesting.Pages.RegistrationPage;
 
-import com.testing.CucumberWebTesting.Pages.CommonPage;
+import com.testing.CucumberWebTesting.Factories.PageInitFactory;
+import com.testing.CucumberWebTesting.Pages.CommonPage.CommonPageWebElements;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.springframework.context.annotation.Scope;
@@ -10,7 +11,7 @@ import static io.cucumber.spring.CucumberTestContext.SCOPE_CUCUMBER_GLUE;
 
 @Component
 @Scope(SCOPE_CUCUMBER_GLUE)
-public class RegistrationPageWebElements extends CommonPage {
+public class RegistrationPageWebElements extends PageInitFactory {
 
     @FindBy(id = "input-firstname")
     public WebElement firstName;

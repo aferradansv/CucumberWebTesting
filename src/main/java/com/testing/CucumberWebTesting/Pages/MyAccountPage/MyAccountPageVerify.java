@@ -1,6 +1,5 @@
 package com.testing.CucumberWebTesting.Pages.MyAccountPage;
 
-import com.testing.CucumberWebTesting.Pages.LogInPage.LogInPageWebElements;
 import org.assertj.core.api.Assertions;
 import org.openqa.selenium.WebDriver;
 import org.springframework.beans.factory.annotation.Autowired;
