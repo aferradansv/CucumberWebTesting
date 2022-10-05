@@ -40,7 +40,7 @@ public class ShoppingCartStepDef {
     }
 
     @And("the customer adds {int} product in the position {int} to the shopping cart")
-    public void theCustomerAddsTheProductInThePositionToTheShoppingCart(int productAmount, int productPosition) {
+    public void theCustomerAddsTheProductInThePositionToTheShoppingCart(int productAmount, int productPosition) throws InterruptedException {
         for (int i=0; i<productAmount;i++) {
             productsPageAct.addToCartProductFromList(productPosition);
         }

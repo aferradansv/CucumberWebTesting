@@ -2,7 +2,7 @@
 Feature: Navigate to the product details of Apple Cinema 30 and select several options
 
 
-  @run
+  @smoke
   Scenario Outline: Add different options of Apple Cinema 30" and check the prices are correctly calculated
     Given a new user opens the store web
     And the user navigates to the monitors product page

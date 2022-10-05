@@ -39,7 +39,7 @@ public class ProductDetailsPageWebElements extends PageInitFactory {
     @FindBy(id = "input-option209")
     public WebElement textBox;
 
-    @FindBy(id = "button-upload222")
+    @FindBy(id = "input-option222")
     public WebElement uploadButton;
 
     @FindBy(id = "input-option222")

@@ -5,7 +5,7 @@ Feature: Adding and removing products to the customer's shopping cart
   I want to ensure customer add and remove products to the shopping cart
   So that the correct items and prices have been displayed to the customer
 
-
+  @smoke
   Scenario: Adding 1 product to the shopping cart
     Given a new user opens the store web
     When the user navigates to the Phones & PDAs product page

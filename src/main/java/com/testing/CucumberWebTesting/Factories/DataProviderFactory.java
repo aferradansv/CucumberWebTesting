@@ -7,7 +7,12 @@ import org.assertj.core.api.Assertions;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
 
+import javax.net.ssl.SSLContext;
+import javax.net.ssl.TrustManager;
+import javax.net.ssl.X509TrustManager;
 import java.io.IOException;
+import java.security.KeyManagementException;
+import java.security.NoSuchAlgorithmException;
 
 import static io.cucumber.spring.CucumberTestContext.SCOPE_CUCUMBER_GLUE;
 
@@ -23,9 +28,14 @@ public class DataProviderFactory {
         this.registrationInformation = registrationInformation;
     }
 
-    public void createNewCustomerByAPI() throws IOException {
+    public void createNewCustomerByAPI() throws IOException, KeyManagementException, NoSuchAlgorithmException {
 
-        OkHttpClient client = new OkHttpClient();
+        OkHttpClient.Builder client = new OkHttpClient.Builder();
+
+        SSLContext sslContext = SSLContext.getInstance("SSL");
+        sslContext.init(null, new TrustManager[] { TRUST_ALL_CERTS }, new java.security.SecureRandom());
+        client.sslSocketFactory(sslContext.getSocketFactory(), (X509TrustManager) TRUST_ALL_CERTS);
+
 
         RequestBody body = new FormBody.Builder()
                 .add("customer_group_id", "1")
@@ -51,8 +61,24 @@ public class DataProviderFactory {
                 .url(httpUrl)
                 .build();
 
-        Response response = client.newCall(request).execute();
+        Response response = client.build().newCall(request).execute();
 
         Assertions.assertThat(response.code()).isEqualTo(200);
     }
+
+
+    TrustManager TRUST_ALL_CERTS = new X509TrustManager() {
+        @Override
+        public void checkClientTrusted(java.security.cert.X509Certificate[] chain, String authType) {
+        }
+
+        @Override
+        public void checkServerTrusted(java.security.cert.X509Certificate[] chain, String authType) {
+        }
+
+        @Override
+        public java.security.cert.X509Certificate[] getAcceptedIssuers() {
+            return new java.security.cert.X509Certificate[] {};
+        }
+    };
 }

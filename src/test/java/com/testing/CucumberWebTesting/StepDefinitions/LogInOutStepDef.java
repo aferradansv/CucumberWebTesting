@@ -15,6 +15,8 @@ import io.cucumber.java.en.When;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import java.io.IOException;
+import java.security.KeyManagementException;
+import java.security.NoSuchAlgorithmException;
 
 public class LogInOutStepDef {
 
@@ -43,7 +45,7 @@ public class LogInOutStepDef {
     private LogOutPageVerify logOutPageVerify;
 
     @Given("an existing customer user opens the store web")
-    public void anExistingCustomerUserOpensTheStoreWeb() throws IOException {
+    public void anExistingCustomerUserOpensTheStoreWeb() throws IOException, NoSuchAlgorithmException, KeyManagementException {
         dataProvider.createNewCustomerByAPI();
         homePage.navigateTo();
         homePage.verifyHomePageIsDisplayed();

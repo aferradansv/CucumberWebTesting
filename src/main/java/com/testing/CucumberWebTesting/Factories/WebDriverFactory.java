@@ -39,20 +39,25 @@ public class WebDriverFactory {
             if (browser.equalsIgnoreCase("chrome")) {
                 WebDriverManager.chromedriver().setup();
                 ChromeOptions chromeOptions = new ChromeOptions();
+                chromeOptions.setAcceptInsecureCerts(true);
                 if (headless) {
                     chromeOptions.addArguments("--headless");
+                    chromeOptions.addArguments("window-size=1400,600");
                 }
                 driver = new ChromeDriver(chromeOptions);
             } else if (browser.equalsIgnoreCase("firefox")) {
                 WebDriverManager.firefoxdriver().setup();
                 FirefoxOptions firefoxOptions = new FirefoxOptions();
+                firefoxOptions.setAcceptInsecureCerts(true);
                 if (headless) {
                     firefoxOptions.addArguments("--headless");
+                    firefoxOptions.addArguments("window-size=1400,600");
                 }
                 driver = new FirefoxDriver(firefoxOptions);
             } else if (browser.equalsIgnoreCase("edge")) {
                 WebDriverManager.edgedriver().setup();
                 EdgeOptions edgeOptions = new EdgeOptions();
+                edgeOptions.setAcceptInsecureCerts(true);
                 driver = new EdgeDriver(edgeOptions);
             } else {
                 throw new CucumberException("The driver should be one of the following Chrome, Firefox or Edge");

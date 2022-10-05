@@ -1,8 +1,8 @@
 package com.testing.CucumberWebTesting.Pages.ProductDetails;
 
 import com.testing.CucumberWebTesting.Utils.PriceCalculator;
+import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.Select;
 import org.openqa.selenium.support.ui.WebDriverWait;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -10,7 +10,6 @@ import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
 
 import java.io.File;
-import java.io.IOException;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.List;
@@ -34,7 +33,7 @@ public class ProductDetailsPageAct {
     @Autowired
     private PriceCalculator priceCalculator;
 
-    public ProductDetailsPageAct selectProductDetailsOptions(Map<String, String> options) throws IOException {
+    public ProductDetailsPageAct selectProductDetailsOptions(Map<String, String> options) {
         if (options.get("radioOption").equalsIgnoreCase("small"))
             webElements.smallSize.click();
         else if (options.get("radioOption").equalsIgnoreCase("large"))
@@ -65,11 +64,16 @@ public class ProductDetailsPageAct {
         webElements.textBar.sendKeys("Anything goes here");
         webElements.textBox.sendKeys("blah blah blah");
 
-        webElements.uploadButton.click();
-        File uploadExec = new File("src/main/java/com/testing/CucumberWebTesting/Utils/FileUpload.exe");
-        Runtime.getRuntime().exec(uploadExec.getAbsolutePath());
-        webDriverWait.until(ExpectedConditions.alertIsPresent());
-        webDriver.switchTo().alert().accept();
+        ((JavascriptExecutor) webDriver).executeScript("document.getElementById('input-option222').setAttribute('type', 'text');");
+        File uploadExec = new File("src/main/java/com/testing/CucumberWebTesting/Utils/FakeFileUpload.txt");
+        webElements.uploadButton.sendKeys(uploadExec.getAbsolutePath());
+
+//        Unused code to use AutoIt to upload a file using windows
+//        webElements.uploadButton.click();
+//        File uploadExec = new File("src/main/java/com/testing/CucumberWebTesting/Utils/FakeFileUpload.txt");
+//        Runtime.getRuntime().exec(uploadExec.getAbsolutePath());
+//        webDriverWait.until(ExpectedConditions.alertIsPresent());
+//        webDriver.switchTo().alert().accept();
 
         LocalDateTime now = LocalDateTime.now();
         DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
